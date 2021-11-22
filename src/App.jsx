@@ -1,6 +1,7 @@
 import './App.css';
 import { Component } from 'react';
 import FormIMC from './Components/FormIMC'
+import Aleatorio from './Components/Aleatorios';
 
 class App extends Component {
   constructor(props) {
@@ -10,6 +11,17 @@ class App extends Component {
     }
   }
 
+  state = {
+    aleatorio: 0,
+  }
+
+  gerarAleatorio = (i, f) => {
+    const min = Number(i)
+    const max = Number(f)
+    const n = Math.random() * (max - min) + min;
+    this.setState({aleatorio: Math.floor(n)})
+  }
+
   componentDidMount(){
     this.setState({texto: "Alterando o estado"})
   }
@@ -17,9 +29,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Usando state</h1>
-        <h1>{this.state.texto}</h1>
-        <FormIMC/>
+        <h1>Gerando Numeros Aleatorios</h1>
+        <Aleatorio aleatorio={this.state.aleatorio} gerarAleatorio={this.gerarAleatorio}/>
       </div>
     )
   }
