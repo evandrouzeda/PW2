@@ -1,39 +1,28 @@
-import './App.css';
-import { Component } from 'react';
-import FormIMC from './Components/FormIMC'
-import Aleatorio from './Components/Aleatorios';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Rotas from './Pages/Rotas'
+import Menu from './Pages/Menu'
+import Home from './Pages/Home'
+import Sobre from './Pages/Sobre'
+import NotFound from './Pages/NotFound'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap";
+import Aleatorio from './Pages/Aleatorio'
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      texto: "Bem vindo ao imalaia"
-    }
-  }
 
-  state = {
-    aleatorio: 0,
-  }
-
-  gerarAleatorio = (i, f) => {
-    const min = Number(i)
-    const max = Number(f)
-    const n = Math.random() * (max - min) + min;
-    this.setState({aleatorio: Math.floor(n)})
-  }
-
-  componentDidMount(){
-    this.setState({texto: "Alterando o estado"})
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Gerando Numeros Aleatorios</h1>
-        <Aleatorio aleatorio={this.state.aleatorio} gerarAleatorio={this.gerarAleatorio}/>
-      </div>
-    )
-  }
+function App() {
+  return (
+    <Router>
+      <Menu />
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/rotas" element={<Rotas />} />
+        <Route exact path="/sobre" element={<Sobre />} />
+        <Route path="*" element={<NotFound />} />
+        <Route exact path="/rotas/:id" element={ <Rotas/> } />
+        <Route exact path="/aleatorio" element={ <Aleatorio/> } />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
